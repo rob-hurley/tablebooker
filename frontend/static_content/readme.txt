@@ -1,0 +1,1 @@
+Place any static files e.g. images, css, client js into this folder.
