@@ -7,9 +7,9 @@ Maps requests from the frontend to resources in the backend
 
 const express = require ('express');
 const bodyParser = require('body-parser');
-var ap = express();
+/*var ap = express();
 ap.use(bodyParser.urlencoded({ extended: false }));
-ap.use(bodyParser.json());
+ap.use(bodyParser.json());*/
 
 const request = require ('request');
 
@@ -26,9 +26,6 @@ const endpoints = require('../endpoints');
 //app.use(csrf({ cookie: true })); // Enable CSRF so forms are protected.
 
 // Use module.exports to expose objects
-module.exports.index = index;
-module.exports.login = login;
-module.exports.admin = admin;
 
 module.exports.CreateBooking = CreateBooking;
 module.exports.ModifyBooking = ModifyBooking;
@@ -54,27 +51,6 @@ module.exports.SearchAllRestaurants = SearchAllRestaurants;
 module.exports.GetRestaurant = GetRestaurant;
 module.exports.DeleteRestaurant = DeleteRestaurant;
 
-//
-function index(req, res){
-    console.log('frontend - redirector: index');
-    var url = endpoints.restaurants;
-    console.log('Calling URL ' +url.concat('/'));
-    res.render('index', {title: 'Home'});
-}
-
-function login(req, res){
-    console.log('frontend - redirector: login');
-    var url = endpoints.restaurants;
-    console.log('Calling URL ' +url.concat('/login'));
-    res.render('login', {title: 'Login'});
-}
-
-function admin(req, res){
-    console.log('frontend - redirector: admin');
-    var url = endpoints.restaurants;
-    console.log('Calling URL ' +url.concat('/admin'));
-    res.render('admin', {title: 'Admin'});
-}
 // MICROSERVICE ROUTES
 
 // BOOKINGS
@@ -261,7 +237,7 @@ function DeleteOwner(req, res){
 // RESTAURANTS
 function CreateRestaurant(req, res){
     var body_string = JSON.stringify(req.body);
-    console.log('frontend - redirector: CreateRestaurant');
+    console.log('frontend - redirector: CreateRestaurant'+JSON.parse(body_string));
     var url = endpoints.restaurants;
     var options = {
         uri: url.concat('/CreateRestaurant'),

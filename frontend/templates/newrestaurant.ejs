@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" language="javascript">
+ 
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function validateForm() {
+            var n = document.forms["createrestaurantform"]["restaurantname"].value;
+            var a = document.forms["createrestaurantform"]["restaurantaddress"].value;
+            var p = document.forms["createrestaurantform"]["restaurantphone"].value;
+            var c = document.forms["createrestaurantform"]["restaurantcapacity"].value;
+            var i = document.forms["createrestaurantform"]["restaurantimage"].value;
+            if ((n == "")||(a == "")||(p == "")||(c == "")||(i == "")) {
+                $(document).alert("All Fields Are Required");
+                return false;
+            }
+        }
+        function SubmitForm(){
+            if(validateForm()){
+                $.ajax({
+                    url: '/CreateRestaurant', // url where to submit the request
+                    type : "POST", // type of action POST || GET
+                    dataType : 'json', // data type
+                    data : $("#createrestaurantform").serialize(), // post data || get data
+                    success : function(data, textStatus, xhr) {
+                        $('#restaurantname').val("");
+                        //$("#ajax-alert").addClass("alert alert-danger").text("Restaurant Created");
+                        alert("Ok");
+                        //$("#ajax-alert").fadeTo(5000, 5000).slideUp(5000, function(){});
+                    },
+                    error: function(xhr, resp, errorText) {
+                        $("#ajax-alert").alert("Error Creating Restaurant");
+                        console.log(xhr, resp, text);
+                    },
+                    complete: function(xhr, resp, errorText) {
+                        alert("Completed");
+                        console.log(xhr, resp, text);
+                    }
+                });
+            }
+            alert("OK");
+            return true;
+        }
+        </script>
+</head>
+<body>
+    <p id="restaurant"></p>
+    <div class="container">
+        <h2><%= title %> Page</h2>
+        <div class="table-responsive"> 
+            <div id="booking"><h2>Register New Restaurant</h2></div>
+        </div>
+        <iframe width="500" height="500" border="0" name="dummyframe" id="dummyframe"></iframe>
+        <form class="form-inline" id="createrestaurantform" name="createrestaurantform" action="/createrestaurant" onsubmit="return SubmitForm();" method="post" target="dummyframe">
+            <div class="form-group">
+                <label class="sr-only" for="Name">Restaurant Name:</label>
+                <input type="text" class="form-control" class="form-control" placeholder="Restaurant Name" name="restaurantname" id="restaurantname">
+            </div>
+            <div class="form-group">    
+                <label class="sr-only" for="Address">Restaurant Address:</label>
+                <input type="text" class="form-control" class="form-control" placeholder="Restaurant Address" name="restaurantaddress" id="restaurantaddress"> 
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Phone">Restaurant Phone:</label>
+                <input type="tel" class="form-control" class="form-control" placeholder="Restaurant Phone" name="restaurantphone" id="restaurantphone">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Capacity">Restaurant Capacity:</label>
+                <input type="number" class="form-control" class="form-control" placeholder="Restaurant Capacity" name="restaurantcapacity" id="restaurantcapacity">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="Image">Restaurant Image:</label>
+                <input type="text" class="form-control" class="form-control" placeholder="Restaurant Image" name="restaurantimage" id="restaurantimage">
+            </div>
+            <input type="hidden" name="ownerid" value="1">
+            <div class="form-group">
+                <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            </div>
+        </form>    
+    </div>
+
+    <script>
+
+        
+    </script>
+</body>
+</html>

@@ -28,8 +28,10 @@ var server = http.createServer(function (request, response) {
                 request.on('end', function () {
                     try{
                         obj = JSON.parse(body);
+                        console.log("Mark "+obj);
                         if(obj.restaurantname&&obj.restaurantaddress&&obj.restaurantphone&&obj.restaurantcapacity&&obj.ownerid){
                             var querystring = "INSERT INTO restaurants(restaurantname, restaurantaddress, restaurantphone, restaurantcapacity, restaurantimage, ownerid) VALUES('" +obj.restaurantname+"','"+obj.restaurantaddress+"','"+obj.restaurantphone+"','"+obj.restaurantcapacity+"','"+obj.restaurantimage+"','"+obj.ownerid+"')";
+                            console.log("query string"+querystring);
                             db.query(querystring, function (err, result, fields) {
                                 if (err) {
                                     console.log("restaurants: Response Code 500");

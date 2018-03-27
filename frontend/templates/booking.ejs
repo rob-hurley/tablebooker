@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" language="javascript">
+        function getUrlVars(){
+            var vars = [], hash;
+            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+   
+            for(var i = 0; i < hashes.length; i++){
+                hash = hashes[i].split('=');
+                hash[1] = unescape(hash[1]);
+                vars.push(hash[0]);
+                vars[hash[0]] = hash[1];
+            }
+            return vars;
+        }
+
+        function disablesubmit(){
+            $("#submit").prop("disabled",true);
+        }
+        function enablesubmit(){
+            $("#submit").prop("enabled",true);
+        }
+
+        var restaurant_id = getUrlVars()["rid"];
+        if (restaurant_id == null){
+            console.log("R ID: "+restaurant_id);
+            window.location.replace("./restaurants");
+        } else {
+            console.log("R ID: "+restaurant_id);
+            document.getElementById("restaurant").innerHTML = restaurant_id ;
+        }
+        document.getElementById("check").addEventListener("click", function() {
+            checkavailability(restaurant_id);
+        }, false);
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        var BookingHeaders = ["Name", "Address", "Phone", "Image", "Capacity"];
+    </script>
+
+    <script type="text/javascript" language="javascript">
+        function checkavailability() {
+//            hideAll();
+////            $("#products").hide();
+////            $("#cart").show();
+// restaurantid&&obj.bookingdate&&obj.bookinghour){
+            $.ajax({
+                dataType: "json",
+                url: "/SearchAvailability",
+                success: function (data) {
+                    displayAvailability(data, "availability");
+                }
+            });
+        }
+       /* function displayAvailability(availability, name) {
+            var out = "<h1> Availability</h1><table  class=\"table\">";
+            var i;
+            out += '<thead><tr>';
+            for (i = 0; i < BookingHeaders.length; i++) {
+                out += '<th >' + RestaurantHeaders[i] + '</th>';
+            }
+            out += "</tr></thead>";
+            var total=0;
+            for (i = 0; i < restaurant.restaurants.length; i++) {
+                out += "<tbody><tr>";
+                out += '<td style=\"display: none;\">' + restaurant.restaurants[i].restaurantid + '</td>';
+                out += '<td>' + restaurant.restaurants[i].restaurantname + '</td>';
+                out += '<td>' + restaurant.restaurants[i].restaurantaddress + '</td>';
+                out += '<td>' + restaurant.restaurants[i].restaurantphone + '</td>';
+                out += '<td> <img src="';
+                out += "./static_content/" + restaurant.restaurants[i].restaurantimage + '" style="width:104px;height:100px;">';
+                //out += '<td> <button onclick="deleteCartItem(' + restaurant.restaurants[i].cartid;
+                //out += ");getCart();" + '">Delete</button></td>';
+                ////out1 = ")" + '">Delete</button></td>';
+                ////out += out1;
+                out += '<td>' + restaurant.restaurants[i].restaurantcapacity + '</td>';
+                out += "</tr></tbody>";
+            }
+            out += "</table>";
+            out += "<br>";
+            document.getElementById(name).innerHTML = out;
+        }*/
+        </script>
+</head>
+<!-- <body onload="restaurants()"> -->
+<body onload=disablesubmit()>
+    <p id="restaurant"></p>
+    <div class="container">
+        <h2><%= title %> Page</h2>
+        <div class="table-responsive"> 
+            <div id="booking"><h2>Check Availability & Book</h2></div>
+        </div>
+        <form class="form-inline" action="/createbooking">
+            <div class="form-group">
+                    <label for="Date">Date:</label>
+                    <input type="date" class="form-control" id="date">    
+                    <label for="Hour">Hour:</label>
+                    <input type="time" class="form-control" id="time">
+                    <button type="button" class="btn btn-default" id="check">Check</button>
+                    <button type="submit" class="btn btn-default" id="submit">Submit</button>
+            </div>
+        </form>    
+    </div>
+</body>
+</html>

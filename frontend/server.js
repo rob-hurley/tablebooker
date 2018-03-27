@@ -4,9 +4,13 @@ const app = express();
 // For processing POST data
 const bodyParser = require('body-parser');
 
+const path = require('path');
+
 //const cookieParser = require('cookie-parser');
 
 const redirector = require('./redirector');
+
+const content = require('./content');
 
 const logger = require('./logger')
 
@@ -30,10 +34,15 @@ app.use(logger.access); // Log Access Requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static(__dirname + '/static_content'));
-app.get('/', redirector.index);
-app.get('/login', redirector.login);
-app.get('/admin', redirector.admin);
+app.use("/static_content", express.static(path.resolve(__dirname, 'static_content')));
+
+
+app.get('/', content.index);
+app.get('/login', content.login);
+app.get('/admin', content.admin);
+app.get('/restaurants', content.restaurants);
+app.get('/booking', content.booking);
+app.get('/newrestaurant', content.newrestaurant);
 
 // MICROSERVICE ROUTES
 

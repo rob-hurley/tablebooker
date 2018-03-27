@@ -185,7 +185,8 @@ var server = http.createServer(function (request, response) {
                 request.on('end', function () {
                     var obj = url_parts.query;
                     if(obj.restaurantid&&obj.bookingdate&&obj.bookinghour){
-                        var querystring = "SELECT bookingdate, bookinghour, bookingsize FROM bookings where restaurantid='"+obj.restaurantid+"' and bookingdate='" +obj.bookingdate+"' and bookinghour='"+obj.bookinghour+"'";
+                        //##### TEST THIS TOMORROW
+                        var querystring = "SELECT restaurantid, bookingdate, bookinghour, bookings, capacity FROM view_bookings where restaurantid='"+obj.restaurantid+"' and bookingdate='" +obj.bookingdate+"' and bookinghour='"+obj.bookinghour+"'";
                         db.query(querystring, function (err, result, fields) {
                             if (err) {
                                 console.log("bookings: Response Code 500");
@@ -199,11 +200,7 @@ var server = http.createServer(function (request, response) {
                                 }else{
                                     console.log("bookings: Response Code 200");
                                     response.writeHead(200, {'Content-Type': 'application/json'});
-                                    response.write('{ "microservice": "bookings", "location": "/SearchAvailability", "result": "success", "bookings": [');
-                                    for (var i = 0; i < result.length; i++) {
-                                        response.write('{"bookingid": "'+result[i].bookingid+'", "restaurantid": "'+result[i].restaurantid+'", "bookingdate": "'+result[i].bookingdate+'", "bookinghour": "'+result[i].bookinghour+'", "bookingsize": "'+result[i].bookingsize+'"}');
-                                    }
-                                    response.end(']}');
+                                    response.end('{ "microservice": "bookings", "location": "/SearchAvailability", "result": "success", "restaurantid": "'+result[0].restaurantid+'", "bookingdate": "'+result[0].bookingdate+'", "bookinghour": "'+result[0].bookinghour+'", "bookings": "'+result[0].bookings+'", "capacity": "'+result[0].capacity+'"}');
                                 }
                             }
                         });

@@ -1,0 +1,18 @@
+{
+  "name": "restaurants",
+  "version": "1.0.0",
+  "description": "Insert row into restaurant table",
+  "main": "app.js",
+  "dependencies": {
+    "http": "0.0.0",
+    "mysql": "^2.15.0",
+    "url": "^0.11.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Rob Hurley (rob.hurley@mycit.ie)",
+  "license": "ISC"
+}
