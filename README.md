@@ -6,6 +6,10 @@ Each microservice has a config.js. This file specifies a mysql server & port to 
 
 A Makefile exists for each microservice, just run 'make' in each folder to build a docker image for each.
 
+~~~~
+for i in {bookings,customers,frontend,owners,restaurants}; do echo $i; cd ./$i; make; cd ..; done
+~~~~
+
 #### Running
 
 Using the mysql docker image:
