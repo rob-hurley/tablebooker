@@ -9,6 +9,7 @@ A Makefile exists for each microservice, just run 'make' in each folder to build
 #### Running
 
 Using the mysql docker image:
+~~~~
 docker run --name tablebooker_database -p3306:3306 -e MYSQL_ROOT_PASSWORD=changeme -d mysql:latest
 
 docker run -d --name tablebooker_bookings -p4000:4000 --link="tablebooker_database:mysql" tablebooker/bookings:latest
@@ -20,4 +21,4 @@ docker run -d --name tablebooker_frontent -p8000:8000 \
   --link="tablebooker_bookings:bookings" --link="tablebooker_customers:customers" \
   --link="tablebooker_owners:owners" --link="tablebooker_restaurants:restaurants" \
   tablebooker/frontend:latest
-
+~~~~
