@@ -1,7 +1,7 @@
 {
   "name": "customers",
   "version": "1.0.0",
-  "description": "",
+  "description": "tablebooker customers microservice",
   "main": "app.js",
   "dependencies": {
     "http": "^0.0.0",
