@@ -15,7 +15,17 @@ for i in {bookings,customers,frontend,owners,restaurants}; do echo $i; cd ./$i; 
 Using the mysql docker image:
 ~~~~
 docker run --name tablebooker_database -p3306:3306 -e MYSQL_ROOT_PASSWORD=changeme -d mysql:latest
+~~~~
 
+You now need to load the database dump into the docker image database.
+
+~~~~
+cat bookings_database.sql|docker exec -i tablebooker_database /usr/bin/mysql -u root --password=changeme bookings
+
+echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES"|docker exec -i tablebooker_database /usr/bin/mysql -u root --password=changeme bookings
+~~~~
+
+~~~~
 docker run -d --name tablebooker_bookings -p4000:4000 --link="tablebooker_database:mysql" tablebooker/bookings:latest
 docker run -d --name tablebooker_customers -p5000:5000 --link="tablebooker_database:mysql" tablebooker/customers:latest
 docker run -d --name tablebooker_owners -p6000:6000 --link="tablebooker_database:mysql" tablebooker/owners:latest
