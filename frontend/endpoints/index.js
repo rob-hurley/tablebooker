@@ -1,7 +1,7 @@
 (function (){
     'use strict';
-    module.exports.bookings = "http://localhost:4000";
-    module.exports.customers = "http://localhost:5000";
-    module.exports.owners = "http://localhost:6000";
-    module.exports.restaurants = "http://localhost:7000";
+    module.exports.bookings = "http://bookings:4000";
+    module.exports.customers = "http://customers:5000";
+    module.exports.owners = "http://owners:6000";
+    module.exports.restaurants = "http://restaurants:7000";
 }());
