@@ -1,7 +1,7 @@
 var config = {
 
     customers_port: 5000,
-    mysql_host: 'localhost',
+    mysql_host: 'mysql',
     mysql_port: 3306,
     mysql_user: 'root',
     mysql_password: 'bolqr1',
