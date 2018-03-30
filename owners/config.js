@@ -4,7 +4,7 @@ var config = {
     mysql_host: 'mysql',
     mysql_port: 3306,
     mysql_user: 'root',
-    mysql_password: 'bolqr1',
+    mysql_password: 'changeme',
     mysql_database: 'bookings'
 
 }
