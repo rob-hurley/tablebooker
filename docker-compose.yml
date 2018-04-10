@@ -1,5 +1,7 @@
 version: '3'
+
 services:
+
   database:
     image: "mysql"
     container_name: tablebooker_database
@@ -9,7 +11,7 @@ services:
       - MYSQL_ROOT_PASSWORD=changeme
 
   bookings:
-    image: "tablebooker/bookings"
+    image: "robhurley/tablebooker_bookings"
     container_name: tablebooker_bookings
     ports:
       - "4000:4000"
@@ -18,12 +20,11 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
     links:
-      - tablebooker_database:mysql
-     
+      - "database:mysql"
+
   customers:
-    image: "tablebooker/customers"
+    image: "robhurley/tablebooker_customers"
     container_name: tablebooker_customers
     ports:
       - "5000:5000"
@@ -32,12 +33,11 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
     links:
-      - tablebooker_database:mysql
+      - database:mysql
      
-   owners:
-    image: "tablebooker/owners"
+  owners:
+    image: "robhurley/tablebooker_owners"
     container_name: tablebooker_owners
     ports:
       - "6000:6000"
@@ -46,12 +46,11 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
     links:
-      - tablebooker_database:mysql
+      - database:mysql
 
-   restaurants:
-    image: "tablebooker/restaurants"
+  restaurants:
+    image: "robhurley/tablebooker_restaurants"
     container_name: tablebooker_restaurants
     ports:
       - "7000:7000"
@@ -60,17 +59,16 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-      start_period: 40s
     links:
-      - tablebooker_database:mysql
+      - database:mysql
 
-   frontent:
-    image: "tablebooker/frontent"
-    container_name: tablebooker_frontent
+  frontend:
+    image: "robhurley/tablebooker_frontend"
+    container_name: tablebooker_frontend
     ports:
       - "8000:8000"
     links:
-      - tablebooker_bookings:bookings
-      - tablebooker_customers:customers
-      - tablebooker_owners:owners
-      - tablebooker_restaurants:restaurants
+      - bookings
+      - customers
+      - owners
+      - restaurants
