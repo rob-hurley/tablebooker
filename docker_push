@@ -1,3 +1,7 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker push robhurley/tablebooker
+docker push robhurley/tablebooker_bookings
+docker push robhurley/tablebooker_customers
+docker push robhurley/tablebooker_frontend
+docker push robhurley/tablebooker_owners
+docker push robhurley/tablebooker_restaurants
