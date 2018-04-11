@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 services:
 
@@ -9,6 +9,25 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=changeme
+    labels:
+      - traefik.enable=false
+    networks:
+      - internal
+      - traefik
+
+  circuit_breaker:
+    image: traefik
+    container_name: circuit_breaker
+    ports:
+      - 80:80
+      - 8080:8080
+    deploy:
+      placement:
+        constraints:
+          - node.role==manager
+    networks:
+      - internal
+      - traefik
 
   bookings:
     image: "robhurley/tablebooker_bookings"
@@ -22,6 +41,16 @@ services:
       retries: 3
     links:
       - "database:mysql"
+    labels:
+      - traefik.backend=bookings
+      - traefik.docker.network=traefik
+      - traefik.backend.maxconn.amount=10
+      - traefik.backend.loadbalancer.swarm=true
+      - traefik.backend.circuitbreaker.expression=ResponseCodeRatio(500, 600, 0, 600) > 0.5
+      - traefik.port=4000
+    networks:
+      - internal
+      - traefik
 
   customers:
     image: "robhurley/tablebooker_customers"
@@ -35,6 +64,16 @@ services:
       retries: 3
     links:
       - database:mysql
+    labels:
+      - traefik.backend=customers
+      - traefik.docker.network=traefik
+      - traefik.backend.maxconn.amount=10
+      - traefik.backend.loadbalancer.swarm=true
+      - traefik.backend.circuitbreaker.expression=ResponseCodeRatio(500, 600, 0, 600) > 0.5
+      - traefik.port=5000
+    networks:
+      - internal
+      - traefik
      
   owners:
     image: "robhurley/tablebooker_owners"
@@ -48,6 +87,16 @@ services:
       retries: 3
     links:
       - database:mysql
+    labels:
+      - traefik.backend=owners
+      - traefik.docker.network=traefik
+      - traefik.backend.maxconn.amount=10
+      - traefik.backend.loadbalancer.swarm=true
+      - traefik.backend.circuitbreaker.expression=ResponseCodeRatio(500, 600, 0, 600) > 0.5
+      - traefik.port=6000
+    networks:
+      - internal
+      - traefik
 
   restaurants:
     image: "robhurley/tablebooker_restaurants"
@@ -61,6 +110,16 @@ services:
       retries: 3
     links:
       - database:mysql
+    labels:
+      - traefik.backend=restaurants
+      - traefik.docker.network=traefik
+      - traefik.backend.maxconn.amount=10
+      - traefik.backend.loadbalancer.swarm=true
+      - traefik.backend.circuitbreaker.expression=ResponseCodeRatio(500, 600, 0, 600) > 0.5
+      - traefik.port=7000
+    networks:
+      - internal
+      - traefik
 
   frontend:
     image: "robhurley/tablebooker_frontend"
@@ -72,3 +131,8 @@ services:
       - customers
       - owners
       - restaurants
+    labels:
+      - traefik.enable=false
+    networks:
+      - internal
+      - traefik
