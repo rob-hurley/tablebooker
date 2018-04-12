@@ -39,3 +39,51 @@ domain = "tablebooker"
 watch = true
 swarmmode = true
 # exposedbydefault = false
+
+[backends]
+  [backends.bookings]
+    [backends.bookings.maxconn]
+       amount = 10;
+       extractorfunc = "client.ip"
+    [backends.bookings.healthcheck]
+       path = "/HealthCheck"
+       interval = "10s"
+       port = 4000
+    [backends.bookings.circuitbreaker]
+       expression = "NetworkErrorRatio() > 0.5"
+
+[backends]
+  [backends.customers]
+    [backends.customers.maxconn]
+       amount = 10;
+       extractorfunc = "client.ip"
+    [backends.customers.healthcheck]
+       path = "/HealthCheck"
+       interval = "10s"
+       port = 5000
+    [backends.customers.circuitbreaker]
+       expression = "NetworkErrorRatio() > 0.5"
+       
+[backends]
+  [backends.owners]
+    [backends.owners.maxconn]
+       amount = 10;
+       extractorfunc = "client.ip"
+    [backends.owners.healthcheck]
+       path = "/HealthCheck"
+       interval = "10s"
+       port = 6000
+    [backends.owners.circuitbreaker]
+       expression = "NetworkErrorRatio() > 0.5"
+       
+[backends]
+  [backends.restaurants]
+    [backends.restaurants.maxconn]
+       amount = 10;
+       extractorfunc = "client.ip"
+    [backends.restaurants.healthcheck]
+       path = "/HealthCheck"
+       interval = "10s"
+       port = 7000
+    [backends.restaurants.circuitbreaker]
+       expression = "NetworkErrorRatio() > 0.5"
