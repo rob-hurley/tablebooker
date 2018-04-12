@@ -51,8 +51,6 @@ swarmmode = true
        port = 4000
     [backends.bookings.circuitbreaker]
        expression = "NetworkErrorRatio() > 0.5"
-
-[backends]
   [backends.customers]
     [backends.customers.maxconn]
        amount = 10;
@@ -62,9 +60,7 @@ swarmmode = true
        interval = "10s"
        port = 5000
     [backends.customers.circuitbreaker]
-       expression = "NetworkErrorRatio() > 0.5"
-       
-[backends]
+       expression = "NetworkErrorRatio() > 0.5"       
   [backends.owners]
     [backends.owners.maxconn]
        amount = 10;
@@ -75,8 +71,6 @@ swarmmode = true
        port = 6000
     [backends.owners.circuitbreaker]
        expression = "NetworkErrorRatio() > 0.5"
-       
-[backends]
   [backends.restaurants]
     [backends.restaurants.maxconn]
        amount = 10;
