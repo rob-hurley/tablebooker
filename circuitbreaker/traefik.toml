@@ -43,7 +43,7 @@ swarmmode = true
 [backends]
   [backends.bookings]
     [backends.bookings.maxconn]
-       amount = 10;
+       amount = 10
        extractorfunc = "client.ip"
     [backends.bookings.healthcheck]
        path = "/HealthCheck"
@@ -53,7 +53,7 @@ swarmmode = true
        expression = "NetworkErrorRatio() > 0.5"
   [backends.customers]
     [backends.customers.maxconn]
-       amount = 10;
+       amount = 10
        extractorfunc = "client.ip"
     [backends.customers.healthcheck]
        path = "/HealthCheck"
@@ -63,7 +63,7 @@ swarmmode = true
        expression = "NetworkErrorRatio() > 0.5"       
   [backends.owners]
     [backends.owners.maxconn]
-       amount = 10;
+       amount = 10
        extractorfunc = "client.ip"
     [backends.owners.healthcheck]
        path = "/HealthCheck"
@@ -73,7 +73,7 @@ swarmmode = true
        expression = "NetworkErrorRatio() > 0.5"
   [backends.restaurants]
     [backends.restaurants.maxconn]
-       amount = 10;
+       amount = 10
        extractorfunc = "client.ip"
     [backends.restaurants.healthcheck]
        path = "/HealthCheck"
