@@ -59,6 +59,44 @@ var server = http.createServer(function (request, response) {
                     }
                 });
                 break;
+            case "/login":
+                var body = '';
+                var obj;
+                request.on('data', function (data) { body += data; });
+                request.on('end', function () {
+                    try{
+                        obj = JSON.parse(body);
+                        if(obj.owneremail&&obj.ownerpassword){
+                            var querystring = "SELECT owneremail, ownerpassword FROM owners where owneremail='" +obj.owneremail+"' and ownerpassword='"+obj.ownerpassword+"'";
+                            db.query(querystring, function (err, result, fields) {
+                                if (err) {
+                                    console.log("owners: Response Code 500");
+                                    response.writeHead(500, {'Content-Type': 'application/json'});
+                                    response.end('{ "microservice": "owners", "location": "/login", "result": "error" }');                                
+                                }else{
+                                    if(!result){
+                                        console.log("owners: Response Code 400");
+                                        response.writeHead(400, {'Content-Type': 'application/json'});
+                                        response.end('{ "microservice": "owners", "location": "/login", "result": "error" }');
+                                    }else{
+                                        console.log("owners: Response Code 200");
+                                        response.writeHead(200, {'Content-Type': 'application/json'});
+                                        response.end('{ "microservice": "owners", "location": "/login", "result": "success" }');
+                                    }
+                                }
+                            });
+                        }else{
+                            console.log("owners: Response Code 400");
+                            response.writeHead(400, {'Content-Type': 'application/json'});
+                            response.end('{ "microservice": "owners", "location": "/login", "result": "error" }');            
+                        }
+                    }catch(e){
+                        console.log("owners: Response Code 400");
+                        response.writeHead(400, {'Content-Type': 'application/json'});
+                        response.end('{ "microservice": "owners", "location": "/login", "result": "error" }');
+                    }
+                });
+                break;
             default:
             console.log("owners: Response Code 404");
                 response.writeHead(404, {'Content-Type': 'application/json'});
