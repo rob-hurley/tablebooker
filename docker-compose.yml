@@ -17,7 +17,7 @@ services:
 
   circuit_breaker:
     image: traefik
-    container_name: circuit_breaker
+    container_name: tablebooker_circuitbreaker
     ports:
       - 80:80
       - 8080:8080
