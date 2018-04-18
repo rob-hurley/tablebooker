@@ -1,4 +1,4 @@
-NAME='tablebooker/bookings'
+NAME='robhurley/tablebooker_bookings'
 
 build:
 	docker build -t $(NAME) .
