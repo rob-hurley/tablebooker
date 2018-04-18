@@ -14,6 +14,12 @@ docker tag robhurley/tablebooker_frontend robhurley/tablebooker_frontend:$ver
 docker tag robhurley/tablebooker_owners robhurley/tablebooker_owners:$ver
 docker tag robhurley/tablebooker_restaurants robhurley/tablebooker_restaurants:$ver
 
+docker push robhurley/tablebooker_bookings:$ver
+docker push robhurley/tablebooker_customers:$ver
+docker push robhurley/tablebooker_frontend:$ver
+docker push robhurley/tablebooker_owners:$ver
+docker push robhurley/tablebooker_restaurants:$ver
+
 docker push robhurley/tablebooker_bookings:latest
 docker push robhurley/tablebooker_customers:latest
 docker push robhurley/tablebooker_frontend:latest
