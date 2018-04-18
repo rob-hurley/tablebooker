@@ -35,8 +35,9 @@
                     success : function(data, textStatus, xhr) {
                         $('#restaurantname').val("");
                         //$("#ajax-alert").addClass("alert alert-danger").text("Restaurant Created");
-                        alert("Ok");
+                        alert("Restaurant Created");
                         //$("#ajax-alert").fadeTo(5000, 5000).slideUp(5000, function(){});
+			return true;
                     },
                     error: function(xhr, resp, errorText) {
                         $("#ajax-alert").alert("Error Creating Restaurant");
@@ -49,7 +50,7 @@
                 });
             }
             alert("OK");
-            return true;
+            return false;
         }
         </script>
 </head>
@@ -60,8 +61,8 @@
         <div class="table-responsive"> 
             <div id="booking"><h2>Register New Restaurant</h2></div>
         </div>
-        <iframe width="500" height="500" border="0" name="dummyframe" id="dummyframe"></iframe>
-        <form class="form-inline" id="createrestaurantform" name="createrestaurantform" action="/createrestaurant" onsubmit="return SubmitForm();" method="post" target="dummyframe">
+        <iframe width="1" height="1" border="0" name="dummyframe" id="dummyframe"></iframe>
+        <form class="form-inline" id="createrestaurantform" name="createrestaurantform" action="/createrestaurant" onsubmit="return SubmitForm() && document.getElementById("createrestaurantform").reset();" method="post" target="dummyframe">
             <div class="form-group">
                 <label class="sr-only" for="Name">Restaurant Name:</label>
                 <input type="text" class="form-control" class="form-control" placeholder="Restaurant Name" name="restaurantname" id="restaurantname">
