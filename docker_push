@@ -1,14 +1,20 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-ver="1.01"
+ver="1.02"
 docker tag robhurley/tablebooker_bookings robhurley/tablebooker_bookings:$ver
 docker tag robhurley/tablebooker_customers robhurley/tablebooker_customers:$ver
 docker tag robhurley/tablebooker_frontend robhurley/tablebooker_frontend:$ver
 docker tag robhurley/tablebooker_owners robhurley/tablebooker_owners:$ver
 docker tag robhurley/tablebooker_restaurants robhurley/tablebooker_restaurants:$ver
 
-docker push robhurley/tablebooker_bookings:$ver
-docker push robhurley/tablebooker_customers:$ver
-docker push robhurley/tablebooker_frontend:$ver
-docker push robhurley/tablebooker_owners:$ver
-docker push robhurley/tablebooker_restaurants:$ver
+docker tag robhurley/tablebooker_bookings robhurley/tablebooker_bookings:latest
+docker tag robhurley/tablebooker_customers robhurley/tablebooker_customers:latest
+docker tag robhurley/tablebooker_frontend robhurley/tablebooker_frontend:latest
+docker tag robhurley/tablebooker_owners robhurley/tablebooker_owners:latest
+docker tag robhurley/tablebooker_restaurants robhurley/tablebooker_restaurants:latest
+
+docker push robhurley/tablebooker_bookings:latest
+docker push robhurley/tablebooker_customers:latest
+docker push robhurley/tablebooker_frontend:latest
+docker push robhurley/tablebooker_owners:latest
+docker push robhurley/tablebooker_restaurants:latest
