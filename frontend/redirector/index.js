@@ -38,11 +38,13 @@ module.exports.CreateCustomer = CreateCustomer;
 module.exports.SearchCustomer = SearchCustomer;
 module.exports.GetCustomer = GetCustomer;
 module.exports.DeleteCustomer = DeleteCustomer;
+module.exports.login = login;
 
 module.exports.CreateOwner = CreateOwner;
 module.exports.SearchOwner = SearchOwner;
 module.exports.GetOwner = GetOwner;
 module.exports.DeleteOwner = DeleteOwner;
+module.exports.adminlogin = adminlogin;
 
 module.exports.CreateRestaurant = CreateRestaurant;
 module.exports.ModifyRestaurant = ModifyRestaurant;
@@ -182,6 +184,16 @@ function DeleteCustomer(req, res){
         res.status(resp.statusCode).send(JSON.parse(body));
       });
 }
+function login(req, res){
+    console.log('frontend - redirector: login');
+    var url = endpoints.customers;
+    console.log('Calling URL ' +url.concat('/login'));
+    request(url.concat('/login'), function(err, resp, body) {
+        if (err) { return console.log(err); }
+        console.log(JSON.parse(body));
+        res.status(resp.statusCode).send(JSON.parse(body));
+      });
+}
 
 // OWNERS
 function CreateOwner(req, res){
@@ -228,6 +240,17 @@ function DeleteOwner(req, res){
     var url = endpoints.owners;
     console.log('Calling URL ' +url.concat('/DeleteOwner'));
     request(url.concat('/DeleteOwner'), function(err, resp, body) {
+        if (err) { return console.log(err); }
+        console.log(JSON.parse(body));
+        res.status(resp.statusCode).send(JSON.parse(body));
+      });
+}
+
+function adminlogin(req, res){
+    console.log('frontend - redirector: adminlogin');
+    var url = endpoints.owners;
+    console.log('Calling URL ' +url.concat('/adminlogin'));
+    request(url.concat('/adminlogin'), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));
         res.status(resp.statusCode).send(JSON.parse(body));
