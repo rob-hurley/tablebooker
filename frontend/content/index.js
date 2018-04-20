@@ -6,6 +6,9 @@ module.exports.restaurants = restaurants;
 module.exports.booking = booking;
 module.exports.newrestaurant = newrestaurant;
 
+module.exports.showmybookings = showmybookings;
+module.exports.showmyrestaurants = showmrestaurants;
+
 //
 function index(req, res){
     console.log('frontend - content: index');
@@ -39,4 +42,14 @@ function newrestaurant(req, res){
     console.log('frontend - content: newrestaurant');
     console.log('Calling URL /newrestaurant');
     res.render('newrestaurant', {title: 'New Restaurant'});
+}
+function showmybookings(req, res){
+    console.log('frontend - content: showmybookings');
+    console.log('Calling URL /showmybookings');
+    res.render('showmybookings', {title: 'Show My Bookings'});
+}
+function showmyrestaurants(req, res){
+    console.log('frontend - content: showmyrestaurants);
+    console.log('Calling URL /showmyrestaurants');
+    res.render('showmyrestaurants', {title: 'Show My Restaurants'});
 }
