@@ -1,0 +1,17 @@
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Install Prerequisites
+      apt: name=apt-transport-https update_cache=yes
+      apt: name=ca-certificates
+      apt: name=curl
+      apt: name=software-properties-common
+    - name: Install Repo Key
+      apt_key: url=https://download.docker.com/linux/ubuntu/gpg
+    - name: Install Repo
+      apt_repository: repo='deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable'
+        state: present
+    - name: Install Docker
+      apt: name=docker-ce 
+    - service: name=docker state=restarted
