@@ -7,7 +7,7 @@ module.exports.booking = booking;
 module.exports.newrestaurant = newrestaurant;
 
 module.exports.showmybookings = showmybookings;
-module.exports.showmyrestaurants = showmrestaurants;
+module.exports.showmyrestaurants = showmyrestaurants;
 
 //
 function index(req, res){
