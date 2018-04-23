@@ -44,6 +44,9 @@ app.get('/restaurants', content.restaurants);
 app.get('/booking', content.booking);
 app.get('/newrestaurant', content.newrestaurant);
 
+app.get('/showmyrestaurants', content.showmyrestaurants);
+app.get('/showmybookings', content.showmybookings);
+
 // MICROSERVICE ROUTES
 
 // BOOKINGS
