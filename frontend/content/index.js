@@ -49,7 +49,7 @@ function showmybookings(req, res){
     res.render('showmybookings', {title: 'Show My Bookings'});
 }
 function showmyrestaurants(req, res){
-    console.log('frontend - content: showmyrestaurants);
+    console.log('frontend - content: showmyrestaurants');
     console.log('Calling URL /showmyrestaurants');
     res.render('showmyrestaurants', {title: 'Show My Restaurants'});
 }

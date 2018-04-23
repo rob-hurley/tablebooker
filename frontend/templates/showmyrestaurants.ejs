@@ -10,7 +10,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" language="javascript">
-        var RestaurantHeaders = ["Name", "Address", "Phone", "Image", "Capacity", "Make Booking"];
+        var RestaurantHeaders = ["Name", "Address", "Phone", "Image", "Capacity"];
     </script>
 
     <script type="text/javascript" language="javascript">
@@ -20,14 +20,14 @@
 ////            $("#cart").show();
             $.ajax({
                 dataType: "json",
-                url: "/SearchAllRestaurants",
+                url: "/SearchRestaurant",
                 success: function (data) {
                     displayRestaurants(data, "restaurant");
                 }
             });
         }
         function displayRestaurants(restaurant, name) {
-            var out = "<h1> Restaurants</h1><table  class=\"table\">";
+            var out = "<h1>Restaurants</h1><table  class=\"table\">";
             var i;
             out += '<thead><tr>';
             for (i = 0; i < RestaurantHeaders.length; i++) {
@@ -37,27 +37,21 @@
             var total=0;
             for (i = 0; i < restaurant.restaurants.length; i++) {
                 out += "<tbody><tr>";
-                out += '<td style=\"display: none;\">' + restaurant.restaurants[i].restaurantid + '</td>';
-                out += '<td>' + restaurant.restaurants[i].restaurantname + '</td>';
+                out += '<td style=\"display: none;\">' + restaurant.restaurants[i].restaurantname + '</td>';
                 out += '<td>' + restaurant.restaurants[i].restaurantaddress + '</td>';
                 out += '<td>' + restaurant.restaurants[i].restaurantphone + '</td>';
                 out += '<td> <img src="';
                 out += "./static_content/" + restaurant.restaurants[i].restaurantimage + '" style="width:104px;height:100px;">';
-                //out += '<td> <button onclick="deleteCartItem(' + restaurant.restaurants[i].cartid;
-                //out += ");getCart();" + '">Delete</button></td>';
-                ////out1 = ")" + '">Delete</button></td>';
-                ////out += out1;
                 out += '<td>' + restaurant.restaurants[i].restaurantcapacity + '</td>';
-                out += '<td><button type=\"button\" class=\"btn btn-default btn-block\" onclick=\"createBooking('+restaurant.restaurants[i].restaurantid+')\">Book</button></td>';
                 out += "</tr></tbody>";
             }
             out += "</table>";
             out += "<br>";
             document.getElementById(name).innerHTML = out;
         }
-        function createBooking(restaurant_id){
-            window.location.href = "/booking?rid="+restaurant_id;
-        }
+//        function createBooking(restaurant_id){
+//            window.location.href = "/booking?rid="+restaurant_id;
+//        }
         </script>
 
 </head>
