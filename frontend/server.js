@@ -1,4 +1,5 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 
 // For processing POST data
@@ -52,7 +53,7 @@ app.use(logger.access); // Log Access Requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.cookieParser());
+app.use(cookieParser());
 app.use(express.session({ secret: 'example' }));
 
 app.use("/static_content", express.static(path.resolve(__dirname, 'static_content')));
