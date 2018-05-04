@@ -19,6 +19,24 @@ const config = require('./config')
 
 var port = config.frontend_port;
 
+function checkCustomers (req, res, next) {
+	console.log('checkCustomers ' + req.url);
+	if (((req.url === '/showmybookings')||(req.url === '/booking')) && (!req.session || !req.session.authenticated)) {
+		res.redirect('/login');
+		return;
+	}
+	next();
+}
+
+function checkOwners (req, res, next) {
+	console.log('checkOwners ' + req.url);
+	if (((req.url === '/showmyrestaurants')||(req.url === '/newrestaurant')) && (!req.session || !req.session.authenticated)) {
+		res.redirect('/admin');
+		return;
+	}
+	next();
+}
+
 //app.use(cookieParser());
 
 // Set properties for the application. http://expressjs.com/en/api.html#app.set
@@ -34,9 +52,13 @@ app.use(logger.access); // Log Access Requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(express.cookieParser());
+app.use(express.session({ secret: 'example' }));
+
 app.use("/static_content", express.static(path.resolve(__dirname, 'static_content')));
 
-
+app.use(checkCustomers);
+app.use(checkOwners);
 app.get('/', content.index);
 app.get('/login', content.login);
 app.get('/admin', content.admin);

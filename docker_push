@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-ver="1.03"
+ver="1.04"
 
 docker build -t robhurley/tablebooker_bookings bookings
 docker build -t robhurley/tablebooker_customers customers

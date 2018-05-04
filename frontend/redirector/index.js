@@ -191,7 +191,9 @@ function login(req, res){
     request(url.concat('/login'), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));
-        res.status(resp.statusCode).send(JSON.parse(body));
+        //res.status(resp.statusCode).send(JSON.parse(body));
+        req.session.authenticated = true;
+        res.redirect('/showmybookings');
       });
 }
 
@@ -253,7 +255,9 @@ function adminlogin(req, res){
     request(url.concat('/adminlogin'), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));
-        res.status(resp.statusCode).send(JSON.parse(body));
+        //res.status(resp.statusCode).send(JSON.parse(body));
+        req.session.authenticated = true;
+        res.redirect('/showmyrestaurants');
       });
 }
 
