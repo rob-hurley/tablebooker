@@ -1,5 +1,7 @@
 const express = require('express');
-const cookieParser = require('cookie-parser');
+const session= require('express-session');
+var FileStore = require('session-file-store')(session);
+var useDomainForCookies = process.env.DOMAIN || false;
 const app = express();
 
 // For processing POST data
@@ -7,7 +9,7 @@ const bodyParser = require('body-parser');
 
 const path = require('path');
 
-//const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const redirector = require('./redirector');
 
@@ -38,7 +40,6 @@ function checkOwners (req, res, next) {
 	next();
 }
 
-//app.use(cookieParser());
 
 // Set properties for the application. http://expressjs.com/en/api.html#app.set
 app.set('view engine', 'ejs'); // View Engine for templates
@@ -53,8 +54,19 @@ app.use(logger.access); // Log Access Requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(cookieParser());
-app.use(express.session({ secret: 'example' }));
+app.use(session({
+	  name: 'server-session-cookie-id',
+	  secret: 'my express secret',
+	  saveUninitialized: true,
+	  resave: true,
+	  store: new FileStore({
+		      path: '/tmp'
+		    }),
+	  cookie: {
+		      sameSite: true,
+		      domain: useDomainForCookies ? host : undefined
+		    }
+}));
 
 app.use("/static_content", express.static(path.resolve(__dirname, 'static_content')));
 
