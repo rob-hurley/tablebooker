@@ -1,6 +1,5 @@
 module.exports.index = index;
 module.exports.login = login;
-module.exports.admin = admin;
 
 module.exports.restaurants = restaurants;
 module.exports.booking = booking;
