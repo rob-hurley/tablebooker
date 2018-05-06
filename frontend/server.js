@@ -33,7 +33,7 @@ function checkCustomers (req, res, next) {
 
 function checkOwners (req, res, next) {
 	console.log('checkOwners ' + req.url);
-	if (req.url === '/ownerhome') && (!req.session || !req.session.authenticated)) {
+	if (req.url === '/ownerhome') && (!req.session || !req.session.authenticated) {
 		res.redirect('/admin');
 		return;
 	}
