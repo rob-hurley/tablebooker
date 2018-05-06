@@ -1,5 +1,7 @@
 module.exports.index = index;
 module.exports.login = login;
+module.exports.customerhome = customerhome;
+module.exports.ownerhome = ownerhome;
 
 module.exports.restaurants = restaurants;
 module.exports.booking = booking;
@@ -18,6 +20,16 @@ function login(req, res){
     console.log('frontend - content: login');
     console.log('Calling URL /login.do');
     res.render('login', {title: 'Login'});
+}
+function customerhome(req, res){
+    console.log('frontend - content: customerhome');
+    console.log('Calling URL /customerhome');
+    res.render('customerhome', {title: 'Customer Home'});
+}
+function ownerhome(req, res){
+    console.log('frontend - content: ownerhome');
+    console.log('Calling URL /ownerhome');
+    res.render('ownerhome', {title: 'Owner Home'});
 }
 function restaurants(req, res){
     console.log('frontend - content: restaurants');

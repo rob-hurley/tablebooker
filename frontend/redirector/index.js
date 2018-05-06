@@ -186,28 +186,34 @@ function DeleteCustomer(req, res){
       });
 }
 function login(req, res){
+    var body_string = JSON.stringify(req.body);
     console.log('frontend - redirector: login');
     var url = endpoints.customers;
     var landingpage = '/customerhome';
     if (1 == 2){
-
     	url = endpoints.owners;
     	landingpage = '/ownerhome';
     }
+    var options = {
+        uri: url.concat('/login'),
+        method: 'POST',
+        json: true,
+        body: JSON.parse(body_string)
+    };
 
-    console.log('Calling URL ' +url.concat(landingpage));
-    request(url.concat('/login'), function(err, resp, body) {
+    console.log('Calling URL ' +url.concat('/login'));
+
+    request(options, function(err, resp, body) {
         if (err) { return console.log(err); }
-        console.log(JSON.parse(body));
-	//res.send(JSON.parse(body));
+        console.log(JSON.stringify(resp.body));
+        console.log(resp.statusCode);
 	if (resp.statusCode == '200'){
-        	req.session.authenticated = true;
-        	res.redirect(landingpage);
+	    req.session.authenticated = true;
+	    res.redirect(landingpage);
 	} else {
-        	res.redirect('/login.do');
+	    res.redirect('/login.do');
 	}
-        //res.status(resp.statusCode).send(JSON.parse(body));
-      });
+    });
 }
 
 // OWNERS

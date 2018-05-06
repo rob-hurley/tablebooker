@@ -74,6 +74,8 @@ app.use(checkCustomers);
 app.use(checkOwners);
 app.get('/', content.index);
 app.get('/login.do', content.login);
+app.get('/customerhome', content.customerhome);
+app.get('/ownerhome', content.ownerhome);
 app.get('/restaurants', content.restaurants);
 app.get('/booking', content.booking);
 app.get('/newrestaurant', content.newrestaurant);
