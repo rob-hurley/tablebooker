@@ -7,6 +7,7 @@ Maps requests from the frontend to resources in the backend
 
 const express = require ('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 /*var ap = express();
 ap.use(bodyParser.urlencoded({ extended: false }));
 ap.use(bodyParser.json());*/
@@ -187,13 +188,25 @@ function DeleteCustomer(req, res){
 function login(req, res){
     console.log('frontend - redirector: login');
     var url = endpoints.customers;
-    console.log('Calling URL ' +url.concat('/login'));
+    var landingpage = '/customerhome';
+    if (1 == 2){
+
+    	url = endpoints.owners;
+    	landingpage = '/ownerhome';
+    }
+
+    console.log('Calling URL ' +url.concat(landingpage));
     request(url.concat('/login'), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));
+	res.send(JSON.parse(body));
+	if (resp.statusCode == '200'){
+        	req.session.authenticated = true;
+        	res.redirect('/showmybookings');
+	} else {
+        	res.redirect('/login');
+	}
         //res.status(resp.statusCode).send(JSON.parse(body));
-        req.session.authenticated = true;
-        res.redirect('/showmybookings');
       });
 }
 

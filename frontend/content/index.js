@@ -22,12 +22,6 @@ function login(req, res){
     console.log('Calling URL /login');
     res.render('login', {title: 'Login'});
 }
-function admin(req, res){
-    console.log('frontend - content: admin');
-    //var url = endpoints.restaurants;
-    console.log('Calling URL /admin');
-    res.render('admin', {title: 'Admin'});
-}
 function restaurants(req, res){
     console.log('frontend - content: restaurants');
     console.log('Calling URL /restaurants');
