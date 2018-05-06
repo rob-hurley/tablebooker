@@ -199,12 +199,12 @@ function login(req, res){
     request(url.concat('/login'), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));
-	res.send(JSON.parse(body));
+	//res.send(JSON.parse(body));
 	if (resp.statusCode == '200'){
         	req.session.authenticated = true;
-        	res.redirect('/showmybookings');
+        	res.redirect(landingpage);
 	} else {
-        	res.redirect('/login');
+        	res.redirect('/login.do');
 	}
         //res.status(resp.statusCode).send(JSON.parse(body));
       });

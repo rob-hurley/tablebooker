@@ -11,14 +11,12 @@ module.exports.showmyrestaurants = showmyrestaurants;
 //
 function index(req, res){
     console.log('frontend - content: index');
-    //var url = endpoints.restaurants;
     console.log('Calling URL /');
     res.render('index', {title: 'Home'});
 }
 function login(req, res){
     console.log('frontend - content: login');
-    //var url = endpoints.restaurants;
-    console.log('Calling URL /login');
+    console.log('Calling URL /login.do');
     res.render('login', {title: 'Login'});
 }
 function restaurants(req, res){
