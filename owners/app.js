@@ -59,7 +59,7 @@ var server = http.createServer(function (request, response) {
                     }
                 });
                 break;
-            case "/adminlogin":
+            case "/login":
                 var body = '';
                 var obj;
                 request.on('data', function (data) { body += data; });

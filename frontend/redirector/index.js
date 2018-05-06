@@ -187,12 +187,14 @@ function DeleteCustomer(req, res){
 }
 function login(req, res){
     var body_string = JSON.stringify(req.body);
-    console.log('frontend - redirector: login');
+    console.log('frontend - redirector: login ' + body_string);
     var url = endpoints.customers;
     var landingpage = '/customerhome';
-    if (1 == 2){
+    if (req.body.admin == 'on'){
     	url = endpoints.owners;
     	landingpage = '/ownerhome';
+	var body_holder = body_string;
+	body_string = body_holder.replace(/customer/g, "owner");
     }
     var options = {
         uri: url.concat('/login'),
@@ -202,6 +204,7 @@ function login(req, res){
     };
 
     console.log('Calling URL ' +url.concat('/login'));
+    console.log('Passing JSON body ' +body_string);
 
     request(options, function(err, resp, body) {
         if (err) { return console.log(err); }
