@@ -24,7 +24,7 @@ var port = config.frontend_port;
 
 function checkCustomers (req, res, next) {
 	console.log('checkCustomers ' + req.url);
-	if (((req.url === '/showmybookings')||(req.url === '/booking')) && (!req.session || !req.session.authenticated)) {
+	if (req.url === '/customerhome') && (!req.session || !req.session.authenticated)) {
 		res.redirect('/login');
 		return;
 	}
@@ -33,7 +33,7 @@ function checkCustomers (req, res, next) {
 
 function checkOwners (req, res, next) {
 	console.log('checkOwners ' + req.url);
-	if (((req.url === '/showmyrestaurants')||(req.url === '/newrestaurant')) && (!req.session || !req.session.authenticated)) {
+	if (req.url === '/ownerhome') && (!req.session || !req.session.authenticated)) {
 		res.redirect('/admin');
 		return;
 	}
