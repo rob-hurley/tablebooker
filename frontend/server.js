@@ -25,7 +25,7 @@ var port = config.frontend_port;
 function checkCustomers (req, res, next) {
 	console.log('checkCustomers ' + req.url);
 	if ((req.url === '/customerhome') && (!req.session || !req.session.authenticated)) {
-		res.redirect('/login');
+		res.redirect('/login.do');
 		return;
 	}
 	next();
@@ -34,7 +34,7 @@ function checkCustomers (req, res, next) {
 function checkOwners (req, res, next) {
 	console.log('checkOwners ' + req.url);
 	if ((req.url === '/ownerhome') && (!req.session || !req.session.authenticated)) {
-		res.redirect('/login');
+		res.redirect('/login.do');
 		return;
 	}
 	next();
@@ -73,7 +73,7 @@ app.use("/static_content", express.static(path.resolve(__dirname, 'static_conten
 app.use(checkCustomers);
 app.use(checkOwners);
 app.get('/', content.index);
-app.get('/login', content.login);
+app.get('/login.do', content.login);
 app.get('/restaurants', content.restaurants);
 app.get('/booking', content.booking);
 app.get('/newrestaurant', content.newrestaurant);
@@ -93,12 +93,14 @@ app.delete('/DeleteBooking', redirector.DeleteBooking);
 
 // CUSTOMERS
 app.post('/CreateCustomer', redirector.CreateCustomer);
+app.post('/login', redirector.login);
 app.get('/SearchCustomer', redirector.SearchCustomer);
 app.get('/GetCustomer', redirector.GetCustomer);
 app.delete('/DeleteCustomer', redirector.DeleteCustomer);
 
 // OWNERS
 app.post('/CreateOwner', redirector.CreateOwner);
+app.post('/adminlogin', redirector.adminlogin);
 app.get('/SearchOwner', redirector.SearchOwner);
 app.get('/GetOwner', redirector.GetOwner);
 app.delete('/DeleteOwner', redirector.DeleteOwner);
