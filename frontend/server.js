@@ -27,9 +27,6 @@ function checkCustomers (req, res, next) {
 	if ((req.url === '/customerhome') && (!req.session || !req.session.authenticated)) {
 		res.redirect('/login.do');
 		return;
-	}else{
-		req.session.customerid = req.customerid;
-		req.session.customeremail = req.customeremail;
 	}
 	next();
 }
@@ -39,9 +36,6 @@ function checkOwners (req, res, next) {
 	if ((req.url === '/ownerhome') && (!req.session || !req.session.authenticated)) {
 		res.redirect('/login.do');
 		return;
-	}else{
-		req.session.ownerid = req.ownerid;
-		req.session.owneremail = req.owneremail;
 	}
 	next();
 }
@@ -108,7 +102,6 @@ app.delete('/DeleteCustomer', redirector.DeleteCustomer);
 
 // OWNERS
 app.post('/CreateOwner', redirector.CreateOwner);
-app.post('/adminlogin', redirector.adminlogin);
 app.get('/SearchOwner', redirector.SearchOwner);
 app.get('/GetOwner', redirector.GetOwner);
 app.delete('/DeleteOwner', redirector.DeleteOwner);

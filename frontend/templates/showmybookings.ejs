@@ -20,7 +20,7 @@
 ////            $("#cart").show();
             $.ajax({
                 dataType: "json",
-                url: "/SearchBooking",
+                url: "/SearchBooking?customerid=<%= customerid %>",
                 success: function (data) {
                     displayBookings(data, "bookings");
                 }

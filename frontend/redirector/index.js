@@ -6,6 +6,7 @@ Maps requests from the frontend to resources in the backend
 */
 
 const express = require ('express');
+const expressSession = require ('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 /*var ap = express();
@@ -23,8 +24,6 @@ const url = require('url');
 // Load in endpoints where calls will be sent to
 const endpoints = require('../endpoints');
 
-//app.use(cookieParser());
-//app.use(csrf({ cookie: true })); // Enable CSRF so forms are protected.
 
 // Use module.exports to expose objects
 
@@ -45,7 +44,6 @@ module.exports.CreateOwner = CreateOwner;
 module.exports.SearchOwner = SearchOwner;
 module.exports.GetOwner = GetOwner;
 module.exports.DeleteOwner = DeleteOwner;
-module.exports.adminlogin = adminlogin;
 
 module.exports.CreateRestaurant = CreateRestaurant;
 module.exports.ModifyRestaurant = ModifyRestaurant;
@@ -193,8 +191,8 @@ function login(req, res){
     if (req.body.admin == 'on'){
     	url = endpoints.owners;
     	landingpage = '/ownerhome';
-	var body_holder = body_string;
-	body_string = body_holder.replace(/customer/g, "owner");
+    	var body_holder = body_string;
+	    body_string = body_holder.replace(/customer/g, "owner");
     }
     var options = {
         uri: url.concat('/login'),
@@ -211,7 +209,14 @@ function login(req, res){
         console.log(JSON.stringify(resp.body));
         console.log(resp.statusCode);
 	if (resp.statusCode == '200'){
-	    req.session.authenticated = true;
+        req.session.authenticated = true;
+        if (req.body.admin == 'on'){
+            req.session.ownerid = resp.body.ownerid; // read id from db call
+            req.session.owneremail = req.body.owneremail; // read email from form
+        } else{
+            req.session.customerid = resp.body.customerid; // read id from db call
+            req.session.customeremail = req.body.customeremail; // read email from form
+        }
 	    res.redirect(landingpage);
 	} else {
 	    res.redirect('/login.do');
@@ -270,19 +275,6 @@ function DeleteOwner(req, res){
       });
 }
 
-function adminlogin(req, res){
-    console.log('frontend - redirector: adminlogin');
-    var url = endpoints.owners;
-    console.log('Calling URL ' +url.concat('/adminlogin'));
-    request(url.concat('/adminlogin'), function(err, resp, body) {
-        if (err) { return console.log(err); }
-        console.log(JSON.parse(body));
-        //res.status(resp.statusCode).send(JSON.parse(body));
-        req.session.authenticated = true;
-        res.redirect('/showmyrestaurants');
-      });
-}
-
 // RESTAURANTS
 function CreateRestaurant(req, res){
     var body_string = JSON.stringify(req.body);
@@ -325,7 +317,7 @@ function ModifyRestaurant(req, res){
 function SearchRestaurant(req, res){
     console.log('frontend - redirector: SearchRestaurant');
     var url = endpoints.restaurants;
-    console.log('Calling URL ' +url.concat('/SearchRestaurant'));
+    console.log('Calling URL ' +url.concat('/SearchRestaurant?ownerid='+req.query.ownerid));
     request(url.concat('/SearchRestaurant?ownerid='+req.query.ownerid), function(err, resp, body) {
         if (err) { return console.log(err); }
         console.log(JSON.parse(body));

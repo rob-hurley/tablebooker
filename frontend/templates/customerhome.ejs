@@ -17,7 +17,7 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="#">Home</a></li>
-      <li><a href="/showmybookings">My Bookings</a></li>
+      <li><a href="/showmybookings?customerid=<%=customerid %>">My Bookings</a></li>
       <li><a href="/restaurants">Create Booking</a></li>
     </ul>
   </div>
@@ -26,6 +26,7 @@
 <div class="container">
   <h3>Customer Home</h3>
   <p>This is the customer homepage.</p>
+  <p>Your ID is <%= customerid %></p>
 </div>
 
 </body>

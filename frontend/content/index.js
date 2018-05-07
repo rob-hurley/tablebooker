@@ -24,12 +24,12 @@ function login(req, res){
 function customerhome(req, res){
     console.log('frontend - content: customerhome');
     console.log('Calling URL /customerhome');
-    res.render('customerhome', {title: 'Customer Home'});
+    res.render('customerhome', {title: 'Customer Home', customerid: req.session.customerid});
 }
 function ownerhome(req, res){
     console.log('frontend - content: ownerhome');
     console.log('Calling URL /ownerhome');
-    res.render('ownerhome', {title: 'Owner Home'});
+    res.render('ownerhome', {title: 'Owner Home', ownerid: req.session.ownerid});
 }
 function restaurants(req, res){
     console.log('frontend - content: restaurants');
@@ -39,20 +39,20 @@ function restaurants(req, res){
 function booking(req, res){
     console.log('frontend - content: booking');
     console.log('Calling URL /booking');
-    res.render('booking', {title: 'Booking'});
+    res.render('booking', {title: 'Booking', customerid: req.session.customerid});
 }
 function newrestaurant(req, res){
     console.log('frontend - content: newrestaurant');
     console.log('Calling URL /newrestaurant');
-    res.render('newrestaurant', {title: 'New Restaurant'});
+    res.render('newrestaurant', {title: 'New Restaurant', ownerid: req.session.ownerid});
 }
 function showmybookings(req, res){
     console.log('frontend - content: showmybookings');
     console.log('Calling URL /showmybookings');
-    res.render('showmybookings', {title: 'Show My Bookings'});
+    res.render('showmybookings', {title: 'Show My Bookings', customerid: req.session.customerid});
 }
 function showmyrestaurants(req, res){
     console.log('frontend - content: showmyrestaurants');
     console.log('Calling URL /showmyrestaurants');
-    res.render('showmyrestaurants', {title: 'Show My Restaurants'});
+    res.render('showmyrestaurants', {title: 'Show My Restaurants', ownerid: req.session.ownerid});
 }

@@ -67,7 +67,7 @@ var server = http.createServer(function (request, response) {
                     try{
                         obj = JSON.parse(body);
                         if(obj.owneremail&&obj.ownerpassword){
-                            var querystring = "SELECT owneremail, ownerpassword FROM owners where owneremail='" +obj.owneremail+"' and ownerpassword='"+obj.ownerpassword+"'";
+                            var querystring = "SELECT ownerid, owneremail, ownerpassword FROM owners where owneremail='" +obj.owneremail+"' and ownerpassword='"+obj.ownerpassword+"'";
                             db.query(querystring, function (err, result, fields) {
                                 if (err) {
                                     console.log("owners: Response Code 500");
@@ -81,7 +81,7 @@ var server = http.createServer(function (request, response) {
                                     }else{
                                         console.log("owners: Response Code 200");
                                         response.writeHead(200, {'Content-Type': 'application/json'});
-                                        response.end('{ "microservice": "owners", "location": "/adminlogin", "result": "success" }');
+                                        response.end('{ "microservice": "owners", "location": "/adminlogin", "result": "success", "ownerid": "'+result[0].ownerid+'" }');
                                     }
                                 }
                             });

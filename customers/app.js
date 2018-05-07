@@ -66,8 +66,9 @@ var server = http.createServer(function (request, response) {
                 request.on('end', function () {
                     try{
                         obj = JSON.parse(body);
+			    console.log("Body RX: " + obj);
                         if(obj.customeremail&&obj.customerpassword){
-                            var querystring = "select customeremail, customerpassword FROM customers where customeremail='"+obj.customeremail+"' and customerpassword='"+obj.customerpassword+"'";
+                            var querystring = "select customerid, customeremail, customerpassword FROM customers where customeremail='"+obj.customeremail+"' and customerpassword='"+obj.customerpassword+"'";
                             db.query(querystring, function (err, result, fields) {
                                 if (err) {
                                     console.log("customers: Response Code 500");
@@ -81,7 +82,7 @@ var server = http.createServer(function (request, response) {
                                     }else{
                                         console.log("customers: Response Code 200");
                                         response.writeHead(200, {'Content-Type': 'application/json'});
-                                        response.end('{ "microservice": "customers", "location": "/login", "result": "success" }');
+                                        response.end('{ "microservice": "customers", "location": "/login", "result": "success", "customerid": "' +result[0].customerid+ '" }');
                                     }
                                 }
                             });

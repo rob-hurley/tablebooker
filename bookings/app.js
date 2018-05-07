@@ -144,6 +144,7 @@ var server = http.createServer(function (request, response) {
                 request.on('end', function () {
                     var obj = url_parts.query;
                     if(obj.customerid){
+                        console.log("Customer ID " +obj.customerid);
                         var querystring = "SELECT bookingid, restaurantid, bookingdate, bookinghour, bookingsize FROM bookings where customerid='" +obj.customerid+ "'";
                         db.query(querystring, function (err, result, fields) {
                             if (err) {
