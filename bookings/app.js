@@ -162,10 +162,19 @@ var server = http.createServer(function (request, response) {
                                     response.writeHead(200, {'Content-Type': 'application/json'});
 
                                     response.write('{ "microservice": "bookings", "location": "/SearchBooking", "result": "success", "bookings": [');
+                                    console.log('{ "microservice": "bookings", "location": "/SearchBooking", "result": "success", "bookings": [');
                                     for (var i = 0; i < result.length; i++) {
-                                        response.write('{"bookingid: "'+result[i].bookingid+'", "restaurantid": "'+result[i].restaurantid+'", "bookingdate": "'+result[i].bookingdate+'", "bookinghour": "'+result[i].bookinghour+'", "bookingsize": "'+result[i].bookingsize+'"}');
+                                        var d = new Date(result[i].bookingdate);
+                                        response.write('{"bookingid": "'+result[i].bookingid+'", "restaurantid": "'+result[i].restaurantid+'", "bookingdate": "'+d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate()+'", "bookinghour": "'+result[i].bookinghour+'", "bookingsize": "'+result[i].bookingsize+'"}');
+                                        console.log('{"bookingid: "'+result[i].bookingid+'", "restaurantid": "'+result[i].restaurantid+'", "bookingdate": "'+d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate()+'", "bookinghour": "'+result[i].bookinghour+'", "bookingsize": "'+result[i].bookingsize+'"}');
+                                        if((i+1) < result.length){
+                                            response.write(',');
+                                            console.log(',');
+                                        }
+
                                     }
                                     response.end(']}');
+                                    console.log(']}');
 
 
 

@@ -37,7 +37,7 @@
             var total=0;
             for (i = 0; i < booking.bookings.length; i++) {
                 out += "<tbody><tr>";
-                out += '<td style=\"display: none;\">' + booking.bookings[i].bookingid + '</td>';
+                out += '<td>' + booking.bookings[i].bookingid + '</td>';
                 out += '<td>' + booking.bookings[i].restaurantid + '</td>';
                 out += '<td>' + booking.bookings[i].bookingdate + '</td>';
                 out += '<td>' + booking.bookings[i].bookinghour + '</td>';
@@ -55,7 +55,7 @@
     <div class="container">
         <h2><%= title %> Page</h2>
         <div class="table-responsive"> 
-            <div id="restaurant"><h2>Let jQuery AJAX Change This Text</h2></div>
+            <div id="bookings"><h2>Let jQuery AJAX Change This Text</h2></div>
         </div>
     </div>
 </body>
