@@ -21,7 +21,7 @@
 
 CREATE DATABASE bookings;
 
-USE DATABASE bookings;
+USE bookings;
 
 DROP TABLE IF EXISTS `bookings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
