@@ -10,7 +10,7 @@ max_connections=10
 key_buffer_size=8
 thread_cache_size=0
 host_cache_size=0
-thread_stack=131072
+thread_stack=262144
 
 sort_buffer_size=32K
 read_buffer_size=8200
